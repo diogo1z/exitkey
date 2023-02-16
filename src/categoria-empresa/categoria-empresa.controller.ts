@@ -2,7 +2,7 @@ import { Controller, Post, Get, Body } from '@nestjs/common';
 import { CriarCategoriaEmpresaDto } from './dto/criar-categoria-empresa.dto';
 import { CategoriaEmpresaService } from './categoria-empresa.service';
 
-@Controller('categoria-empresa')
+@Controller('api/v1/categoria-empresa')
 export class CategoriaEmpresaController {
   constructor(
     private readonly categoriaEmpresaService: CategoriaEmpresaService,
@@ -20,7 +20,9 @@ export class CategoriaEmpresaController {
 
   @Get()
   async listarCategoriasEmpresas() {
-    await this.categoriaEmpresaService.criarCategoriaEmpresa({ nome: 'teste' });
+    await this.categoriaEmpresaService.criarCategoriaEmpresa({
+      nome: 'teste',
+    });
 
     return JSON.stringify({
       nome: 'diogo',
