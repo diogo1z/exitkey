@@ -24,19 +24,20 @@ export class CompanyService {
 
   async getById(id: string): Promise<ICompany> {
     const company = await this.companyRepository.findOneBy({ id });
-    console.log(company);
     return company;
   }
 
   async deleteById(id: string): Promise<ICompany> {
-    const company = await this.companyRepository.delete({ id });
-    console.log(company.raw, company.affected, company);
-    return company.raw;
+    const company = await this.companyRepository.findOneBy({ id });
+
+    if (!company) return null;
+
+    await this.companyRepository.delete({ id });
+    return company;
   }
 
   async list(): Promise<ICompany[]> {
     const companies = await this.companyRepository.find();
-    console.log(companies);
     return companies;
   }
 }
