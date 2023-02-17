@@ -7,7 +7,6 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class EmpresaService {
-  private empresas: IEmpresa[] = [];
   private readonly logger = new Logger(EmpresaService.name);
 
   constructor(
@@ -16,34 +15,28 @@ export class EmpresaService {
   ) {}
 
   async criarEmpresa(criarEmpresaDto: CriarEmpresaDTO): Promise<IEmpresa> {
-    this.logger.log(criarEmpresaDto, 'log service');
-    return await this.criar(criarEmpresaDto);
-  }
-
-  private async criar(criarEmpresaDto: CriarEmpresaDTO): Promise<IEmpresa> {
     const { nome, classificacao, id } = await this.empresaRepository.save(
       criarEmpresaDto,
     );
-
-    this.empresas.push({ nome, classificacao, id });
 
     return { nome, classificacao, id };
   }
 
   async obterPorId(id: string): Promise<IEmpresa> {
-    return this.empresas.find((empresa) => empresa.id === id);
-  }
-
-  async deletarPorId(id: string): Promise<IEmpresa> {
-    const empresa = await this.obterPorId(id);
-    if (empresa) {
-      this.empresas = this.empresas.filter((empresa) => empresa.id !== id);
-    }
-
+    const empresa = await this.empresaRepository.findOneBy({ id });
+    console.log(empresa);
     return empresa;
   }
 
+  async deletarPorId(id: string): Promise<IEmpresa> {
+    const empresa = await this.empresaRepository.delete({ id });
+    console.log(empresa.raw, empresa.affected, empresa);
+    return empresa.raw;
+  }
+
   async listarEmpresas(): Promise<IEmpresa[]> {
-    return this.empresas;
+    const empresas = await this.empresaRepository.find();
+    console.log(empresas);
+    return empresas;
   }
 }

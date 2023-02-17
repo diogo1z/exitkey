@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'empresa' })
 @Unique(['nome'])
 export class EmpresaEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -25,13 +25,4 @@ export class EmpresaEntity extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  // constructor(empresa?: Partial<EmpresaEntity>) {
-  //   super();
-  //   this.id = empresa?.id;
-  //   this.nome = empresa?.nome;
-  //   this.classificacao = empresa?.classificacao;
-  //   this.createdAt = empresa?.createdAt;
-  //   this.updatedAt = empresa?.updatedAt;
-  // }
 }
