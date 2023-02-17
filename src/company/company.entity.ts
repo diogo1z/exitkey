@@ -8,17 +8,17 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'empresa' })
-@Unique(['nome'])
-export class EmpresaEntity extends BaseEntity {
+@Entity({ name: 'company' })
+@Unique(['name'])
+export class CompanyEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ nullable: false, type: 'varchar', length: 200 })
-  nome: string;
+  name: string;
 
   @Column({ nullable: false, type: 'varchar', length: 1 })
-  classificacao: string;
+  classification: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './configs/typeorm.config';
-import { EmpresaModule } from './empresa/empresa.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), EmpresaModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), CompanyModule],
 })
 export class AppModule {}
